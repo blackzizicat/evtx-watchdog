@@ -69,8 +69,9 @@ Chainsaw https://github.com/WithSecureLabs/chainsaw を使用した windows serv
     *   例）`git clone https://github.com/SigmaHQ/sigma ./sigma`（ルール群）
     *   例）`mappings/sigma-event-logs-all.yml` を取得（Chainsaw リポジトリの `mappings/` 参照）。 [\[github.com\]](https://github.com/WithSecureLabs/chainsaw/wiki/Usage), [\[github.com\]](https://github.com/WithSecureLabs/chainsaw)
 
-    > git clone https://github.com/SigmaHQ/sigma ./sigma
-    > curl -o ./mappings/sigma-event-logs-all.yml https://raw.githubusercontent.com/WithSecureLabs/chainsaw/refs/heads/master/mappings/sigma-event-logs-all.yml        
+    > Invoke-WebRequest "https://github.com/SigmaHQ/sigma/archive/refs/heads/master.zip" -OutFile "sigma.zip"
+    > Expand-Archive "sigma.zip" -DestinationPath "./sigma"
+    > Invoke-WebRequest "https://raw.githubusercontent.com/WithSecureLabs/chainsaw/refs/heads/master/mappings/sigma-event-logs-all.yml" -OutFile "./mappings/sigma-event-logs-all.yml"
 
 
 2.  `evtx/` 配下にホストごとのサブディレクトリを作成し、各 `.evtx` を配置。
