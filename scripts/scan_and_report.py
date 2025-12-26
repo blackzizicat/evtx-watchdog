@@ -244,9 +244,7 @@ def main():
     # 検出のあったホストの要約と通知
     detected_hosts = [r for r in results if r["detected"]]
     if detected_hosts:
-        lines = [
-            "Chainsaw 検出結果サマリ",
-        ]
+        lines = ["Chainsaw 検出結果サマリ","検出結果の詳細レポートはccwinmanの C:\\admin\\evtx-watchdog\\reports を参照してください"]
         if CHAINS_LEVELS:
             lines.append(f"レベルフィルタ: {','.join(CHAINS_LEVELS)}")
         if FROM or TO:
@@ -268,13 +266,14 @@ def main():
         body = "\n".join(lines)
         subject = f"Chainsaw Detection {len(detected_hosts)} host(s) detected"
 
-        # 添付: 各ホストの出力ディレクトリから csv を収集
-        attachments = []
-        for r in detected_hosts:
-            out_dir = os.path.dirname(r['log_path'])
-            for f in sorted(Path(out_dir).rglob("*.csv")):
-                attachments.append(str(f))
-        send_mail(subject, body, attachments=attachments)
+        # # 添付: 各ホストの出力ディレクトリから csv を収集
+        # attachments = []
+        # for r in detected_hosts:
+        #     out_dir = os.path.dirname(r['log_path'])
+        #     for f in sorted(Path(out_dir).rglob("*.csv")):
+        #         attachments.append(str(f))
+        # send_mail(subject, body, attachments=attachments)
+        send_mail(subject, body)
     else:
         print("[INFO] 検出はありませんでした。メールは送信されません。")
 
